@@ -21,10 +21,6 @@ import twitterVerifiedBadge from '../../assets/images/twitter-verified-badge.svg
 function MainLayout() {
   // States
   const [edit, setEdit] = useState(true)
-  // const [firstFourDigits, setFirstFourDigits] = useState("")
-  // const [secondFourDigits, setSecondFourDigits] = useState("")
-  // const [thirdFourDigits, setThirdFourDigits] = useState("")
-  // const [fourthFourDigits, setFourthFourDigits] = useState("")
   const [cvv, setCvv] = useState("")
   const [expiryMonth, setExpiryMonth] = useState("")
   const [expiryYear, setExpiryYear] = useState("")
@@ -33,6 +29,7 @@ function MainLayout() {
   const [openModal, setOpenModal] = React.useState(false);
   const [numberOfCardNumberDigits, setNumberOfCardNumberDigits] = useState(0)
   const [isFormFilled, setIsFormFilled] = useState(false)
+  const [reset, setReset] = useState(false)
 
   // Refs
   const cvvRef = useRef(null)
@@ -52,28 +49,6 @@ function MainLayout() {
     boxShadow: 24,
     p: 4,
   };
-
-  // const handleCardNumberChange = (e, stage) => {
-  //   const inputValue = e.target.value
-  //   // Remove any non-numeric characters
-  //   const numericValue = inputValue.replace(/[^0-9]/g, '');
-  //   // Limit input to four digits
-  //   const limitedValue = numericValue.slice(0, 4);
-  //   switch (stage) {
-  //     case 'one':
-  //       setFirstFourDigits(limitedValue);
-  //       break;
-  //     case 'two':
-  //       setSecondFourDigits(limitedValue);
-  //       break;
-  //     case 'three':
-  //       setThirdFourDigits(limitedValue);
-  //       break;
-  //     case 'four':
-  //       setFourthFourDigits(limitedValue);
-  //       break;
-  //   }
-  // }
 
   // Functions
   const handleCardNumberChange = (event) => {
@@ -150,26 +125,19 @@ function MainLayout() {
         break
     }
   }
-
-  // const checkIfFormFilled = () => {
-  //   console.log('Check ->', (
-  //     numberOfCardNumberDigits >= 16 &&
-  //     cvv.length >= 3 &&
-  //     expiryMonth.length >= 2 &&
-  //     expiryYear.length >= 2 &&
-  //     password.length > 0
-  //   ))
-  //   setIsFormFilled((
-  //     numberOfCardNumberDigits >= 16 &&
-  //     cvv.length >= 3 &&
-  //     expiryMonth.length >= 2 &&
-  //     expiryYear.length >= 2 &&
-  //     password.length > 0
-  //   ))
-  // }
-
+  const resetForm = () => {
+    setCvv("")
+    setExpiryMonth("")
+    setExpiryYear("")
+    setPassword("")
+    setCardNumber("")
+    setReset((prevState) => !prevState)
+  }
   const handleOpen = () => setOpenModal(true);
-  const handleClose = () => setOpenModal(false);
+  const handleClose = () => {
+    setOpenModal(false);
+    resetForm()
+  }
 
   // Use Effect
   useEffect(() => {
@@ -227,7 +195,7 @@ function MainLayout() {
                 <p className="logo-text">AceCoin<span>Pay</span></p>
               </div>
               <div className="timer">
-                <Timer/>
+                <Timer reset={reset} />
               </div>
             </div>
             <div className="main-form-section">
@@ -255,13 +223,6 @@ function MainLayout() {
                       style={{ width: '100%' }}
                       readOnly={!edit ? true : false}
                     />
-                    {/* <input type="text" value={firstFourDigits} onChange={e => handleCardNumberChange(e, 'one')} className='number-input' placeholder='2412' />
-                    <p className="card-number-input-dash">-</p>
-                    <input type="text" value={secondFourDigits} onChange={e => handleCardNumberChange(e, 'two')} className='number-input' placeholder='7512' />
-                    <p className="card-number-input-dash">-</p>
-                    <input type="text" value={thirdFourDigits} onChange={e => handleCardNumberChange(e, 'three')} className='number-input' placeholder='3412' />
-                    <p className="card-number-input-dash">-</p>
-                    <input type="text" value={fourthFourDigits} onChange={e => handleCardNumberChange(e, 'four')} className='number-input' placeholder='3456' /> */}
                   </div>
                   {!edit && <img src={twitterVerifiedBadge} alt="" />}
                 </div>

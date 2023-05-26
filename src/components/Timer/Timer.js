@@ -2,7 +2,7 @@ import "./Timer.scss"
 
 import React, { useEffect, useState } from 'react'
 
-function Timer() {
+function Timer({ reset }) {
   const [secondsTimer, setSecondsTimer] = useState("00")
   const [minutesTimer, setMinutesTimer] = useState("00")
 
@@ -32,7 +32,7 @@ function Timer() {
     return () => {
       clearInterval(interval);
     };
-  }, [])
+  }, [reset])
   return (
     <div className="timer-div">
       <div className="minutes-blocks">
