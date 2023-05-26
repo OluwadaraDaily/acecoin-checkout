@@ -4,7 +4,8 @@ import masterCardFullLogo from '../../assets/images/mastercard-full-logo.svg'
 
 import React from 'react'
 
-function MasterCard() {
+function MasterCard({ cardNumber, expiryMonth, expiryYear, cardNumberFullyEntered }) {
+  const lastFourNumbers = cardNumberFullyEntered && cardNumber.length < 37 ? "" : cardNumber.substring(cardNumber.length - 4)
   return (
     <div className='mastercard-container'>
       <div className="inner-mastercard-container">
@@ -24,9 +25,9 @@ function MasterCard() {
         </div>
         <div className="mastercard-details">
           <p className="name">Jonathan Michael</p>
-          <p className="card-number">&#9679; &#9679; &#9679; &#9679;    3456</p>
+          <p className="card-number">&#9679; &#9679; &#9679; &#9679; {lastFourNumbers}</p>
           <div className="date-and-logo">
-            <p className="date">09/22</p>
+            <p className="date">{expiryMonth}/{expiryYear}</p>
             <img src={masterCardFullLogo} alt="MasterCard Logo" />
           </div>
         </div>
