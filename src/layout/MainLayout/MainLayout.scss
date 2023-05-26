@@ -1,0 +1,358 @@
+main {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  .main-popup {
+    height: 80%;
+    width: 80%;
+    margin: auto;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+
+    .top-menu {
+      display: flex;
+      justify-content: flex-end;
+
+      .close-btn {
+        padding: 10px 20px;
+        background-color: #f9fafc;
+      }
+    }
+
+    .main-section {
+      display: flex;
+      flex-grow: 1;
+      width: 90%;
+      margin: 0 auto;
+      gap: 50px;
+      .card-form {
+        flex: 3;
+        // border: 1px solid green;
+
+        .title-section {
+          display: flex;
+          justify-content: space-between;
+
+          .full-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .logo-img {
+              height: 40px;
+              width: 40px;
+              background-color: #015eff;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .logo-text {
+              font-weight: 600;
+              font-size: 20px;
+              span {
+                font-weight: 300;
+              }
+            }
+          }
+        }
+        .main-form-section {
+          margin: 50px 0 30px 0;
+          .label-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .label-text-section {
+              .label-title {
+                font-size: 16px;
+                font-weight: 600;
+                margin-bottom: 10px;
+                color: #1e2952;
+              }
+              .label-sub-title {
+                font-size: 12px;
+                color: #b7bdcf;
+              }
+            }
+
+            .edit-button {
+              display: flex;
+              align-items: flex-end;
+              color: #015eff;
+              gap: 5px;
+              .edit-text {
+                font-weight: 500;
+              }
+            }
+          }
+          .card-number-inputs {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #cdcdcd;
+            border-radius: 8px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &.disabled {
+              background-color: #efefef;
+            }
+
+            .inner-card-number-inputs {
+              display: flex;
+              align-items: center;
+              gap: 20px;
+            }
+
+            .number-input {
+              border: none;
+              outline: none;
+              background-color: transparent;
+              font-family: 'Montserrat';
+              font-size: 20px;
+              width: 48px;
+
+              &::placeholder {
+                opacity: .5;
+              }
+            }
+
+            .card-number-input-dash {
+              font-weight: 500;
+              font-size: 20px;
+            }
+          }
+          .cvv-number-section {
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            .label-text-section {
+              flex: 1;
+            }
+            .cvv-input-section {
+              border: 1px solid #ededed;
+              padding: 20px 15px;
+              flex: 1;
+              border-radius: 8px;
+              display: flex;
+              align-items: center;
+              .cvv-input {
+                border: none;
+                outline: none;
+                background-color: transparent;
+                font-family: 'Montserrat';
+                font-size: 20px;
+                width: 90%;
+                text-align: center;
+                font-weight: 600;
+
+                &::placeholder {
+                  opacity: .5;
+                  font-weight: 500;
+                }
+              }
+            }
+          }
+          .expiry-date-section {
+            display: flex;
+            align-items: center;
+            .label-text-section, .expiry-date-inputs {
+              flex: 1;
+            }
+            .expiry-date-inputs {
+              display: flex;
+              align-items: center;
+              gap: 20px;
+              justify-content: flex-end;
+              .expiry-input {
+                border: 1px solid #cdcdcd;
+                padding: 20px 0;
+                border-radius: 8px;
+                text-align: center;
+                font-family: 'Montserrat';
+                font-weight: 600;
+                font-size: 20px;
+                width: 100%;
+                &::placeholder {
+                  opacity: .5;
+                  font-weight: 500;
+                }
+              }
+              .date-divider {
+                font-weight: 600;
+                font-size: 20px;
+              }
+            }
+          }
+          .password-section {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            .label-text-section, .password-inputs {
+              flex: 1;
+            }
+            .password-inputs {
+              display: flex;
+              align-items: center;
+              border: 1px solid #cdcdcd;
+              border-radius: 8px;
+              padding: 15px 0;
+              width: 100%;
+              .password-input {
+                font-size: 20px;
+                border: none;
+                outline: none;
+                background-color: transparent;
+                font-family: 'Montserrat';
+                font-size: 30px;
+                width: 90%;
+                font-weight: 600;
+                padding-left: 20px;
+                letter-spacing: 2px;
+                height: 100%;
+
+                &::placeholder {
+                  opacity: .5;
+                  font-weight: 500;
+                  letter-spacing: 5px;
+                }
+              }
+            }
+          }
+          .pay-now-btn {
+            width: 100%;
+            button {
+              font-family: 'Montserrat';
+              width: 100%;
+              padding: 20px 0;
+              font-weight: 600;
+              font-size: 18px;
+              background-color: #015eff;
+              color: #fff;
+              border: none;
+              border-radius: 8px;
+            }
+          }
+        }
+      }
+      .card-order-details {
+        flex: 1.5;
+        position: relative;
+
+        .order-card {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .order-receipt {
+          background-color: #e6ebef;
+          border-radius: 8px;
+          margin-top: 30%;
+          .inner-order-receipt {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 70%;
+            .order-row {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin: 15px 0;
+            }
+            .title {
+              color: #747fa0;
+              font-size: 16px;
+              font-weight: 400;
+            }
+            .value {
+              color: #1f2b53;
+              font-size: 18px;
+              font-weight: 600;
+            }
+            .payment-section {
+              margin: 20px 0;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              .amount-payable {
+                padding-bottom: 10px;
+                .title {
+                  color: #747fa0;
+                  font-size: 16px;
+                  font-weight: 400;
+                  margin: 10px 0 0 0;
+                }
+                .amount {
+                  span.dollars {
+                    font-weight: 700;
+                    font-size: 30px;
+                  }
+                  span.cents {
+                    font-weight: 500;
+                    font-size: 18px;
+                  }
+
+                  span.currency {
+                    margin-left: 8px;
+                    font-weight: 500;
+                    font-size: 18px;
+                    color: #7682a2;
+                  }
+                }
+              }
+            }
+          }
+          .divider-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .semi-circle {
+              display: flex;
+
+              height: 15px;
+              width: 30px;
+              border-radius: 15px 15px 0 0;
+              background-color: #fff;
+              &.flip-right {
+                transform: rotate(90deg);
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                margin-left: -7px;
+              }
+              &.invert {
+                transform: rotate(-90deg);
+                margin-right: -7px;
+              }
+
+            }
+            .divider {
+              border: 1px dashed #c8cfe2;
+              height: 1px;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.label-text-section {
+  .label-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1e2952;
+  }
+  .label-sub-title {
+    font-size: 12px;
+    color: #b7bdcf;
+  } 
+}

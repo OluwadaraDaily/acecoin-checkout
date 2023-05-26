@@ -1,0 +1,92 @@
+.mastercard-container {
+  height: 320px;
+  width: 250px;
+  border-radius: 12px;
+  z-index: 200;
+  background-color: #fff;
+  // border: 1px solid #000;
+  background-image: url('../../assets/images/abstract-white-background-small-black-spots-abstract-white-background-small-black-spots-183662720.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  -webkit-box-shadow: 3px 6px 11px 3px rgba(230,235,239,1);
+  -moz-box-shadow: 3px 6px 11px 3px rgba(230,235,239,1);
+  box-shadow: 3px 6px 11px 3px rgba(230,235,239,1);
+  .inner-mastercard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+    height: 100%;
+    .magnetic-strip-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+  
+      .magnetic-strip {
+        height: 45px;
+        width: 40px;
+        border: 1px solid #7f7f7f;
+        border-radius: 10px;
+        background-color: silver;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+
+        .strip-cell {
+          &.border-right-curve {
+            border-top-right-radius: -5px;
+          }
+          &.border-top-curve {
+            border-top-left-radius: 4px;
+          }
+          &.border-right {
+            border-right: 1px solid #7f7f7f;
+          }
+          &.border-left {
+            border-left: 1px solid #7f7f7f;
+          }
+          &.border-top {
+            border-top: 1px solid #7f7f7f;
+          }
+          &.border-bottom {
+            border-bottom: 1px solid #7f7f7f;
+          }
+          &.span-row {
+            grid-column: 1 / -1
+          }
+        }
+
+      }
+    }
+
+    .mastercard-details {
+      margin-bottom: 20px;
+
+      .name {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+      .card-number {
+        font-weight: 600;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .date-and-logo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .date {
+          font-size: 20px;
+          font-weight: 500;
+        }
+      }
+
+    }
+  }
+}

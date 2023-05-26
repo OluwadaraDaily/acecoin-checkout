@@ -1,0 +1,26 @@
+.timer-div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  .minutes-blocks, .seconds-blocks {
+    display: flex;
+    gap: 3px;
+  }
+
+  .time-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 30px;
+    background-color: #1e2952;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 4px;
+  }
+  .time-separator {
+    font-weight: 700;
+    font-size: 20px;
+  }
+}
