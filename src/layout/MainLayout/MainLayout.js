@@ -1,31 +1,40 @@
-import React, { useEffect, useRef, useState } from 'react'
+// Styling imports
 import './MainLayout.scss'
 
-import CloseIcon from '@mui/icons-material/Close';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import CreateIcon from '@mui/icons-material/Create';
-import DialpadIcon from '@mui/icons-material/Dialpad';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import AppleIcon from '@mui/icons-material/Apple';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
+// React Core imports
+import React, { useEffect, useRef, useState } from 'react'
 
+// MUI imports
+import {
+  Close as CloseIcon,
+  CreditCard as CreditCardIcon,
+  Create as CreateIcon,
+  Dialpad as DialpadIcon,
+  ReceiptLong as ReceiptLongIcon,
+  Apple as AppleIcon,
+} from '@mui/icons-material';
+import { Box, Typography, Modal, Button } from '@mui/material'
+
+// Custom Component imports
 import Timer from '../../components/Timer/Timer';
 import MasterCard from '../../components/MasterCard/MasterCard';
+import AppInput from '../../components/Input/Input'
 
+// Asset images imports
 import mastercardIcon from '../../assets/images/mc_icon.svg'
 import twitterVerifiedBadge from '../../assets/images/twitter-verified-badge.svg'
 
 function MainLayout() {
   // States
+  const initialFormState = {
+    cardNumber: "",
+    cvv: "",
+    expiryMonth: "",
+    expiryYear: "",
+    password: ""
+  }
+  const [formState, setFormState] = useState(initialFormState)
   const [edit, setEdit] = useState(true)
-  const [cvv, setCvv] = useState("")
-  const [expiryMonth, setExpiryMonth] = useState("")
-  const [expiryYear, setExpiryYear] = useState("")
-  const [password, setPassword] = useState("")
-  const [cardNumber, setCardNumber] = useState('');
   const [openModal, setOpenModal] = React.useState(false);
   const [numberOfCardNumberDigits, setNumberOfCardNumberDigits] = useState(0)
   const [isFormFilled, setIsFormFilled] = useState(false)
@@ -51,35 +60,35 @@ function MainLayout() {
   };
 
   // Functions
-  const handleCardNumberChange = (event) => {
-    const value = event.target.value;
-    setCardNumber(formatCreditCardNumber(value));
-  };
-
-  const handleCVVOnChange = (e) => {
-    const inputValue = e.target.value
+  const handleInputChange = (event, inputName) => {
+    const inputValue = event.target.value
     const numericValue = inputValue.replace(/[^0-9]/g, '');
-    const limitedValue = numericValue.slice(0, 3);
-    setCvv(limitedValue)
-  }
-
-  const handleExpiryMonthOnChange = (e) => {
-    const inputValue = e.target.value
-    const numericValue = inputValue.replace(/[^0-9]/g, '');
-    const limitedValue = numericValue.slice(0, 2);
-    setExpiryMonth(limitedValue)
-  }
-
-  const handleExpiryYearOnChange = (e) => {
-    const inputValue = e.target.value
-    const numericValue = inputValue.replace(/[^0-9]/g, '');
-    const limitedValue = numericValue.slice(0, 2);
-    setExpiryYear(limitedValue)
-  }
-
-  const handlePasswordOnChange = (e) => {
-    const inputValue = e.target.value
-    setPassword(inputValue)
+    const ThreeCharLimitedValue = numericValue.slice(0, 3);
+    const TwoCharLimitedValue = numericValue.slice(0, 2);
+    switch (inputName) {
+      case 'card-number':
+        setFormState((prevState) => ({ ...prevState, cardNumber: formatCreditCardNumber(inputValue) }));
+        break;
+      
+      case 'cvv':
+        setFormState((prevState) => ({ ...prevState, cvv: ThreeCharLimitedValue }))
+        break;
+      
+      case 'expiry-month':
+        setFormState((prevState) => ({ ...prevState, expiryMonth: TwoCharLimitedValue }))
+        break;
+      
+      case 'expiry-year':
+        setFormState((prevState) => ({ ...prevState, expiryYear: TwoCharLimitedValue }))
+        break;
+      
+      case 'password':
+        setFormState((prevState) => ({ ...prevState, password: inputValue }))
+        break;
+      
+      default:
+        break;
+    }
   }
 
   const formatCreditCardNumber = (value) => {
@@ -125,12 +134,9 @@ function MainLayout() {
         break
     }
   }
+
   const resetForm = () => {
-    setCvv("")
-    setExpiryMonth("")
-    setExpiryYear("")
-    setPassword("")
-    setCardNumber("")
+    setFormState(() => ({ ...initialFormState }))
     setReset((prevState) => !prevState)
   }
   const handleOpen = () => setOpenModal(true);
@@ -141,41 +147,36 @@ function MainLayout() {
 
   // Use Effect
   useEffect(() => {
-    const cardNumberCount = countNumbersInString(cardNumber)
-    if (cardNumberCount === 16) {
-      setEdit(false)
-      cvvRef.current.focus()
-    } else {
-      setEdit(true)
+    const { cardNumber, cvv, expiryMonth, expiryYear, password } = formState;
+    
+    const cardNumberCount = countNumbersInString(cardNumber);
+    const isCardNumberValid = cardNumberCount === 16;
+    setEdit(!isCardNumberValid);
+    if (isCardNumberValid) {
+      cvvRef.current.focus();
     }
-    setNumberOfCardNumberDigits(cardNumberCount)
-  }, [cardNumber])
-
-  useEffect(() => {
-    if(cvv.length === 3) monthRef.current.focus()
-  }, [cvv])
-
-  useEffect(() => {
+    setNumberOfCardNumberDigits(cardNumberCount);
+    
+    if (cvv.length === 3) {
+      monthRef.current.focus();
+    }
+    
     if (expiryMonth.length === 2) {
-      yearRef.current.focus()
+      yearRef.current.focus();
     }
-  }, [expiryMonth])
-
-  useEffect(() => {
+    
     if (expiryYear.length === 2) {
-      passwordRef.current.focus()
+      passwordRef.current.focus();
     }
-  }, [expiryYear])
-
-  useEffect(() => {
-    setIsFormFilled((
+    
+    const isFormFilled =
       numberOfCardNumberDigits >= 16 &&
       cvv.length >= 3 &&
       expiryMonth.length >= 2 &&
       expiryYear.length >= 2 &&
-      password.length > 0
-    ))
-  }, [numberOfCardNumberDigits, cvv, expiryMonth, expiryYear, password])
+      password.length > 0;
+    setIsFormFilled(isFormFilled);
+  }, [formState, numberOfCardNumberDigits]);
 
   return (
     <main>
@@ -213,14 +214,12 @@ function MainLayout() {
                 <div className={!edit ? "card-number-inputs disabled" : "card-number-inputs"} tabIndex="0">
                   <div className="inner-card-number-inputs">
                     <img src={mastercardIcon} alt="MasterCard Icon" />
-                    <input
+                    <AppInput
                       type="text"
-                      value={cardNumber}
-                      onChange={handleCardNumberChange}
+                      value={formState.cardNumber}
+                      handleInputChange={(event) => handleInputChange(event, 'card-number')}
                       maxLength="37"
                       placeholder="2412   -   7512   -   3412   -   3456"
-                      className='number-input'
-                      style={{ width: '100%' }}
                       readOnly={!edit ? true : false}
                     />
                   </div>
@@ -232,7 +231,15 @@ function MainLayout() {
                     <p className="label-sub-title">Enter the 3 or 4 digit number on the card</p>
                   </div>
                   <div className="cvv-input-section" tabIndex="0">
-                    <input type="text" ref={cvvRef} value={cvv} onChange={handleCVVOnChange} className='cvv-input' placeholder='272' />
+                    <AppInput
+                      type="text"
+                      ref={cvvRef}
+                      value={formState.cvv}
+                      handleInputChange={(event) => handleInputChange(event, 'cvv')}
+                      maxLength="3"
+                      placeholder="272"
+                      style={{ textAlign: 'center'}}
+                    />
                     <DialpadIcon sx={{ color: '#96a1b8' }} onClick={() => moveFocus('cvv')} className='keypad-icon' />
                   </div>
                 </div>
@@ -242,9 +249,25 @@ function MainLayout() {
                     <p className="label-sub-title">Enter the expiration date of the card</p>
                   </div>
                   <div className="expiry-date-inputs">
-                    <input type="text" ref={monthRef} value={expiryMonth} onChange={handleExpiryMonthOnChange} className="expiry-input" placeholder='08'/>
+                    <AppInput
+                      type="text"
+                      ref={monthRef}
+                      value={formState.expiryMonth}
+                      handleInputChange={(event) => handleInputChange(event, 'expiry-month')}
+                      maxLength="2"
+                      placeholder="08"
+                      style={{ border: '1px solid #cdcdcd', textAlign: 'center', padding: '15px 0', borderRadius: '8px' }}
+                    />
                     <p className='date-divider'>/</p>
-                    <input type="text" ref={yearRef} value={expiryYear} onChange={handleExpiryYearOnChange} className="expiry-input" placeholder='99'/>
+                    <AppInput
+                      type="text"
+                      ref={yearRef}
+                      value={formState.expiryYear}
+                      handleInputChange={(event) => handleInputChange(event, 'expiry-year')}
+                      maxLength="2"
+                      placeholder="99"
+                      style={{ border: '1px solid #cdcdcd', textAlign: 'center', padding: '15px 0', borderRadius: '8px' }}
+                    />
                   </div>
                 </div>
                 <div className="password-section">
@@ -253,7 +276,14 @@ function MainLayout() {
                     <p className="label-sub-title">Enter your Dynamic Password</p>
                   </div>
                   <div className="password-inputs" tabIndex="0">
-                    <input type="password" ref={passwordRef} value={password} onChange={handlePasswordOnChange} className='password-input' placeholder='&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;' />
+                    <AppInput
+                      type="password"
+                      ref={passwordRef}
+                      value={formState.password}
+                      handleInputChange={(event) => handleInputChange(event, 'password')}
+                      placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                      style={{ paddingLeft: '20px' }}
+                    />
                     <DialpadIcon sx={{ color: '#96a1b8' }} onClick={() => moveFocus('password')} className='keypad-icon' />
                   </div>
                 </div>
@@ -265,7 +295,7 @@ function MainLayout() {
           </div>
           <div className="card-order-details">
             <div className="order-card">
-              <MasterCard cardNumber={cardNumber} expiryMonth={expiryMonth} expiryYear={expiryYear} cardNumberFullyEntered={edit} />
+              <MasterCard cardNumber={formState.cardNumber} expiryMonth={formState.expiryMonth} expiryYear={formState.expiryYear} cardNumberFullyEntered={edit} />
             </div>
             <div className="order-receipt">
               <div className="inner-order-receipt">

@@ -105,7 +105,7 @@ main {
               background-color: #efefef;
               cursor: not-allowed;
 
-              .number-input {
+              input {
                 color: #7682a2;
               }
             }
@@ -113,8 +113,8 @@ main {
             &:focus {
               outline: 2px solid #015eff;
               background-color: #edf3ff;
-              .number-input {
-                color: #015eff !important;
+              input {
+                color: #015eff;
               }
             }
 
@@ -123,25 +123,6 @@ main {
               align-items: center;
               gap: 20px;
               width: 100%;
-            }
-
-            .number-input {
-              border: none;
-              outline: none;
-              background-color: transparent;
-              font-family: 'Montserrat';
-              font-size: 20px;
-              width: 48px;
-              font-weight: 500;
-              
-              &::placeholder {
-                opacity: .5;
-              }
-            }
-
-            .card-number-input-dash {
-              font-weight: 500;
-              font-size: 20px;
             }
           }
           .cvv-number-section {
@@ -164,30 +145,16 @@ main {
               &:focus {
                 outline: 2px solid #015eff;
                 background-color: #edf3ff;
-                .cvv-input {
+                input {
                   color: #015eff;
                 }
                 svg {
                   color: #015eff;
                 }
               }
-              .cvv-input {
-                border: none;
-                outline: none;
-                background-color: transparent;
-                font-family: 'Montserrat';
-                font-size: 20px;
-                width: 90%;
-                text-align: center;
-                font-weight: 600;
-
-                &::placeholder {
-                  opacity: .5;
-                  font-weight: 500;
-                }
-              }
             }
           }
+          
           .expiry-date-section {
             display: flex;
             align-items: center;
@@ -199,7 +166,7 @@ main {
               align-items: center;
               gap: 20px;
               justify-content: flex-end;
-              .expiry-input {
+              input {
                 border: 1px solid #cdcdcd;
                 padding: 15px 0;
                 border-radius: 8px;
@@ -242,31 +209,11 @@ main {
               &:focus {
                 outline: 2px solid #015eff;
                 background-color: #edf3ff;
-                .password-input {
+                input {
                   color: #015eff;
                 }
                 svg {
                   color: #015eff;
-                }
-              }
-              .password-input {
-                font-size: 20px;
-                border: none;
-                outline: none;
-                background-color: transparent;
-                font-family: 'Montserrat';
-                font-size: 20px;
-                width: 90%;
-                font-weight: 600;
-                padding-left: 20px;
-                letter-spacing: 2px;
-                height: 100%;
-
-                &::placeholder {
-                  opacity: .5;
-                  font-weight: 500;
-                  letter-spacing: 2px;
-                  font-size: 16px;
                 }
               }
             }

@@ -1,0 +1,13 @@
+.app-input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-family: 'Montserrat';
+  font-size: 20px;
+  width: 100%;
+  font-weight: 500;
+  
+  &::placeholder {
+    opacity: .5;
+  }
+}
